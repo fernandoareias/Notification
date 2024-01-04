@@ -1,0 +1,80 @@
+version: "3.4"
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      - common.network
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis
+    command: redis-server --requirepass Redis2019!
+    networks:
+      - common.network
+    ports:
+      - "6379:6379"
+
+  mongo1:
+    image: mongo:7.0
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - 27017:27017
+    networks:
+      - common.network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:2.37.0
+    container_name: percona
+    command: --mongodb.uri=mongodb://host.docker.internal:27017/admin --collect-all --discovering-mode
+    ports:
+      - 9216:9216
+    networks:
+      - common.network
+    depends_on:
+      - mongo1
+
+  prometheus:
+    build:
+      context: ./prometheus
+      dockerfile: Dockerfile
+      args:
+        version: 1
+    image: prometheus-local
+    restart: always
+    ports:
+      - 9090:9090
+    networks:
+      - common.network
+
+  granafa:
+    build:
+      context: ./grafana
+      dockerfile: ./Dockerfile
+      args:
+        version: 1
+    image: grafana-local
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - common.network
+
+networks:
+  common.network:
+    driver: bridge

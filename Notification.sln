@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{5B9160EC-64B5-47F8-A393-7C498BEBEF7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AEF8967-B765-4AE1-95D5-FD730261BB9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A867D592-46DD-4FEE-A19A-412399603CB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{81CBFB0D-50C3-4AB5-9637-C348238439AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "worker", "worker", "{89DDB75D-4397-42D1-B58C-86F2AD4CC0F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Core.MessageBus", "src\core\Notification.Core.MessageBus\Notification.Core.MessageBus.csproj", "{6742457B-5D96-4496-A4CE-2CCFA929ABF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Core", "src\core\Notification.Core\Notification.Core.csproj", "{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.API", "src\API\Notification.API\Notification.API.csproj", "{C0358355-BCED-4196-AB73-CF0DF70E80E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B9160EC-64B5-47F8-A393-7C498BEBEF7A} = {6AEF8967-B765-4AE1-95D5-FD730261BB9A}
+		{81CBFB0D-50C3-4AB5-9637-C348238439AC} = {6AEF8967-B765-4AE1-95D5-FD730261BB9A}
+		{89DDB75D-4397-42D1-B58C-86F2AD4CC0F4} = {6AEF8967-B765-4AE1-95D5-FD730261BB9A}
+		{6742457B-5D96-4496-A4CE-2CCFA929ABF1} = {5B9160EC-64B5-47F8-A393-7C498BEBEF7A}
+		{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5} = {5B9160EC-64B5-47F8-A393-7C498BEBEF7A}
+		{C0358355-BCED-4196-AB73-CF0DF70E80E5} = {81CBFB0D-50C3-4AB5-9637-C348238439AC}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6742457B-5D96-4496-A4CE-2CCFA929ABF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6742457B-5D96-4496-A4CE-2CCFA929ABF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6742457B-5D96-4496-A4CE-2CCFA929ABF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6742457B-5D96-4496-A4CE-2CCFA929ABF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59EB325D-5710-4BB2-A7EE-86B1FD25D1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0358355-BCED-4196-AB73-CF0DF70E80E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0358355-BCED-4196-AB73-CF0DF70E80E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0358355-BCED-4196-AB73-CF0DF70E80E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0358355-BCED-4196-AB73-CF0DF70E80E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

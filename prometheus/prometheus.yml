@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "mongodb-metrics-job" 
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: 
+        - "host.docker.internal:9216"
+  
+  - job_name: "webapi-metrics-job" 
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets: 
+        - "host.docker.internal:5009"

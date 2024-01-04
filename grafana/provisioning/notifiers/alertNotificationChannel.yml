@@ -1,0 +1,26 @@
+notifiers:
+  - name: web-metrics-notification
+    type: teams
+    uid: web-metrics-alerts-grafana
+    org_name: Main Org.
+    is_default: true
+    send_reminder: true
+    frequency: 15h
+    disable_resolve_message: false
+    # See `Supported Settings` section for settings supported for each
+    # alert notification type.
+    settings:
+      recipient: "XXX"
+      uploadImage: true
+      token: "xoxb" # legacy setting since Grafana v7.2 (stored non-encrypted)
+      url: url-do-web-hook-por-exemplo-microsoft-teams
+
+    # Secure settings that will be encrypted in the database (supported since Grafana v7.2). See `Supported Settings` section for secure settings supported for each notifier.
+    secure_settings:
+      token: "xoxb"
+      url: url-do-web-hook-por-exemplo-microsoft-teams
+
+delete_notifiers:
+  - name: web-metrics-notification
+    uid: web-metrics-alerts-grafana
+    org_name: Main Org.

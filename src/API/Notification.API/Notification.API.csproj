@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\core\Notification.Core.MessageBus\Notification.Core.MessageBus.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers\WeatherForecastController.cs" />
+      <Compile Remove="WeatherForecast.cs" />
+      <Compile Remove="Domain\Notification\**" />
+      <Compile Remove="DTOs\Responses\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Domain\Notification\**" />
+      <EmbeddedResource Remove="DTOs\Responses\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Domain\Notification\**" />
+      <Content Remove="DTOs\Responses\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Domain\Notification\**" />
+      <None Remove="DTOs\Responses\**" />
+    </ItemGroup>
+
+</Project>

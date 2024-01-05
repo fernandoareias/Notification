@@ -27,7 +27,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-            throw;
+            throw ex;
         }
         
     }

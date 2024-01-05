@@ -1,11 +1,13 @@
 using System.Runtime.Serialization;
+using Notification.Core.Common.CQRS;
 using Notification.Core.Domain.Enums;
 
-namespace Notification.API.DTOs.Requests;
+namespace Notification.Worker.Application.Commands;
+
 
 [DataContract]
-public class CreateNotificationRequest
-{
+public class CreateNotificationCommand : Command
+{ 
     [DataMember]
     public string Recipient { get; set; }
     
@@ -16,12 +18,13 @@ public class CreateNotificationRequest
     public int MessageLayout { get; set; }
     
     [DataMember]
-    public List<CreateNotificationParamsRequest> Params { get; set; }
+    public List<CreateNotificationParamsCommand> Params { get; set; }
 }
 
+
 [DataContract]
-public class CreateNotificationParamsRequest
-{
+public class CreateNotificationParamsCommand
+{ 
     [DataMember]
     public string Key { get; set; }
     

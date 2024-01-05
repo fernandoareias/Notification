@@ -19,6 +19,15 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Domain\Common\**" />
     </ItemGroup>
 
 </Project>

@@ -19,16 +19,16 @@ public class MessageBus : IMessageBus
 {
     public MessageBus(IOptions<MessageBusConfigs> config, ILogger<MessageBus> logger)
     {
-        _busConfigs = config.Value;
-
-        _logger = logger;
+        _busConfigs = config.Value; 
+        _logger = logger; 
     }
     
     private bool _isConnected = false;
     private IConnection _connection;
-    private IModel consumerChannel;
+    private IModel _consumerChannel;
     private ConnectionFactory factory = new ConnectionFactory() { Uri = new Uri("amqp://admin:admin@localhost:5672/") };
 
+    private readonly IDictionary<string, List<string>> _exchangeRoutingKeys = new Dictionary<string, List<string>>();
     private readonly MessageBusConfigs _busConfigs;
     private readonly ILogger<MessageBus> _logger;
     
@@ -60,20 +60,47 @@ public class MessageBus : IMessageBus
             Console.WriteLine("connected!");
         });
     }
-
-    public void Publish(string exchange, string routingKey, Command command)
+    
+    private void DeclareQueueAndExchange(string routingKey, string exchangeName, IModel channel)
     {
+        bool containsExchange = _exchangeRoutingKeys.ContainsKey(exchangeName);
+        bool containsRoutingKey = containsExchange && _exchangeRoutingKeys[exchangeName].Contains(routingKey);
+
+        if (containsExchange && containsRoutingKey) return;
+         
+        if (!containsExchange!)
+        {
+            // Declaração da exchange
+            channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct, durable: true);
+            _exchangeRoutingKeys.Add(exchangeName, new List<string>());
+        }
+
+        if (!containsRoutingKey)
+        {
+            // Declaração da fila
+            channel.QueueDeclare(queue: routingKey, durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+            // Vinculação da fila à exchange usando a routing key
+            channel.QueueBind(queue: routingKey, exchange: exchangeName, routingKey: routingKey);
+            _exchangeRoutingKeys[exchangeName].Add(routingKey);
+        }
+        
+    }
+
+    public void Publish(string exchange, string routingKey, dynamic command)
+    { 
         using (var channel = connection.CreateModel())
         {
-            channel.ExchangeDeclare(exchange, type: ExchangeType.Direct);
-            channel.QueueDeclare(queue: routingKey,
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+            DeclareQueueAndExchange(routingKey, exchange, channel);
             
-            var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(command));
-            channel.BasicPublish(exchange: exchange, routingKey: routingKey, basicProperties: null, body: body);
+            string commandJson = JsonSerializer.Serialize(command);
+            _logger.LogInformation($"[PUBLISH] - Exchange: {exchange} | Type: {ExchangeType.Direct.ToString()} | Queue: {routingKey} | RoutingKey: {routingKey} | Message: {commandJson}");
+
+            var body = Encoding.UTF8.GetBytes(commandJson);
+
+            var properties = channel.CreateBasicProperties();
+            properties.Persistent = true;
+            channel.BasicPublish(exchange: exchange, routingKey: routingKey, basicProperties: properties, body: body);
         }
     }
 
@@ -92,28 +119,44 @@ public class MessageBus : IMessageBus
         }
     }
 
-    public async void Subscribe<TMessage>(string exchange, string routingKey, Func<TMessage, Task> function, CancellationToken stoppingToken)
+    public void Subscribe<TMessage>(string exchange, string routingKey, Action<TMessage> function, CancellationToken stoppingToken)
     {
-        await Task.Yield();
+       // await Task.Yield(); 
+       Console.WriteLine("[CONSUMER] - Create model");
+       _consumerChannel = connection.CreateModel();
+       DeclareQueueAndExchange(routingKey, exchange, _consumerChannel);
+
+       var consumer = new EventingBasicConsumer(_consumerChannel);
+       Console.WriteLine("[CONSUMER] - Run basic consumer");
+       _consumerChannel.BasicConsume(queue: routingKey, autoAck: false, consumer: consumer);
         
-        consumerChannel = connection.CreateModel();
-        consumerChannel.ExchangeDeclare(exchange, ExchangeType.Direct); 
+       consumer.Received += (sender, eventArgs) =>
+       {
+           try
+           {
+               var messageBody = eventArgs.Body.ToArray();
+               var messageJson = Encoding.UTF8.GetString(messageBody);
+               var args = JsonSerializer.Deserialize<TMessage>(messageJson);
+               Console.WriteLine(
+                   $"[SUBSCRIBE] - Exchange: {exchange} | Type: {ExchangeType.Direct.ToString()} | Queue: {routingKey} | RoutingKey: {routingKey} | Message: {messageJson}");
 
-        var queue = consumerChannel.QueueDeclare(queue: routingKey);
+               function(args);
 
-        var consumer = new EventingBasicConsumer(consumerChannel);
+               _consumerChannel.BasicAck(eventArgs.DeliveryTag, false);
+           }
+           catch (Exception ex)
+           {
+               Console.WriteLine(ex);
+               _consumerChannel.BasicNack(eventArgs.DeliveryTag, false, true);
+           }
+       };
 
-        consumerChannel.BasicConsume(queue: routingKey, autoAck: true, consumer: consumer);
-
-        consumer.Received += async (model, ea) => {
-            var messageBody = ea.Body.ToArray();
-            var args = JsonSerializer.Deserialize<TMessage>(Encoding.UTF8.GetString(messageBody)); 
-            await function(args);
-        };
+       
     }
 
     public void Dispose()
     {
         _connection.Dispose();
+        _consumerChannel.Dispose();
     }
 }

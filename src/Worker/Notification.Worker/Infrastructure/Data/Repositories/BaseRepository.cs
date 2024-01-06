@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using Notification.Worker.Data.Interfaces;
 using Notification.Worker.Data.Repositories.Interfaces;
-using Notification.Worker.Domain.Common;
+using Notification.Core.Common.CQRS;
 
 namespace Notification.Worker.Data.Repositories;
 

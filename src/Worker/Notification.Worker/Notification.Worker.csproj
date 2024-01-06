@@ -18,6 +18,7 @@
       <Content Include="..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Remove="Domain\Common\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,5 +28,19 @@
 
     <ItemGroup>
       <Compile Remove="Worker.cs" />
+      <Compile Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain\Events\Factories\" />
+      <Folder Include="Infrastructure\ExternalServices\WhatsApp\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Domain\Common\**" />
     </ItemGroup>
 </Project>

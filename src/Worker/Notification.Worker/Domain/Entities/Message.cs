@@ -1,5 +1,5 @@
 using MongoDB.Bson.Serialization.Attributes;
-using Notification.Worker.Domain.Common;
+using Notification.Core.Common.CQRS;
 
 namespace Notification.Worker.Domain.Entities;
 

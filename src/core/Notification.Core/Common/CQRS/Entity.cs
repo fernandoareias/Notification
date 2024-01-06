@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Notification.Worker.Domain.Common;
+namespace Notification.Core.Common.CQRS;
 
 public abstract class Entity
 {

@@ -1,7 +1,7 @@
 using MongoDB.Bson.Serialization.Attributes;
-using Notification.Core.Domain.Enums;
-using Notification.Worker.Domain.Common;
+using Notification.Core.Domain.Enums; 
 using Notification.Worker.Domain.Entities;
+using Notification.Core.Common.CQRS;
 
 namespace Notification.Worker.Domain;
 
@@ -31,4 +31,13 @@ public class Notification : AggregateRoot
     
     [BsonElement("Parameters")]
     public List<Parameter> Parameters { get; private set; }
+
+    [BsonElement("Sent")] 
+    public List<Sent> Sent { get; private set; }
+    
+    public async Task Send(IDomainService<Sent, Notification> service)
+    {
+        var sent =  await service.Process(this);
+    }
+
 }

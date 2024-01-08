@@ -1,6 +1,30 @@
-namespace Notification.Core.Common.Domain;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-public class Entity
+namespace Notification.Core.Common.CQRS;
+
+public abstract class Entity
 {
-    
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public ObjectId _id
+    {
+        get;
+        protected set;
+    } = ObjectId.GenerateNewId();
+
+
+    [BsonElement("CreatedAt")]
+    public DateTime CreatedAt
+    {
+        get;
+        protected set;
+    } = DateTime.UtcNow;
+
+    [BsonElement("UpdatedAt")]
+    public DateTime? UpdatedAt
+    {
+        get;
+        protected set;
+    }
 }

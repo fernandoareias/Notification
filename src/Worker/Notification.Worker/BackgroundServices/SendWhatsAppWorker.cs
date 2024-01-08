@@ -1,35 +1,33 @@
-using Notification.Core.Mediator.Interfaces;
 using Notification.Core.MessageBus.Services.Interfaces;
 using Notification.Worker.Application.Commands;
-using Notification.Worker.Application.Commands.Factories;
 using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers;
-
-public class SendSMSWorker : BaseWorker
+ 
+public class SendWhatsAppWorker : BaseWorker
 {
-    public SendSMSWorker(ILogger<SendSMSWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
+    public SendWhatsAppWorker(ILogger<SendWhatsAppWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {
         _logger = logger;
          
     }
 
-    private readonly ILogger<SendSMSWorker> _logger;
+    private readonly ILogger<SendWhatsAppWorker> _logger;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Console.WriteLine("[WORKER[SEND-SMS] - Creating process...");
+        Console.WriteLine("[WORKER[SEND-WhatsApp] - Creating process...");
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            Console.WriteLine("[WORKER[SEND-SMS] - Starting process...");
+            Console.WriteLine("[WORKER[SEND-WhatsApp] - Starting process...");
             using (var scope = _serviceProvider.CreateScope())
             {
                 var messageBus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
-                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-SMS", Process,
+                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-WhatsApp", Process,
                     stoppingToken);
 
-                Console.WriteLine("[WORKER[SEND-SMS] - Awaiting process...");
+                Console.WriteLine("[WORKER[SEND-WhatsApp] - Awaiting process...");
                 await Task.Delay(-1, stoppingToken);
             }
         }

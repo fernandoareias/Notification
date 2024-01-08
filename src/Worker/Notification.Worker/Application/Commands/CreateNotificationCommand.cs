@@ -7,7 +7,20 @@ namespace Notification.Worker.Application.Commands;
 
 [DataContract]
 public class CreateNotificationCommand : Command
-{ 
+{
+    protected CreateNotificationCommand()
+    {
+        
+    }
+    
+    public CreateNotificationCommand(string recipient, ENotificationType type, int messageLayout, List<CreateNotificationParamsCommand> @params)
+    {
+        Recipient = recipient;
+        Type = type;
+        MessageLayout = messageLayout;
+        Params = @params;
+    }
+
     [DataMember]
     public string Recipient { get; set; }
     
@@ -24,7 +37,18 @@ public class CreateNotificationCommand : Command
 
 [DataContract]
 public class CreateNotificationParamsCommand
-{ 
+{
+    public CreateNotificationParamsCommand(string key, string value)
+    {
+        Key = key;
+        Value = value;
+    }
+
+    protected CreateNotificationParamsCommand()
+    {
+        
+    }
+    
     [DataMember]
     public string Key { get; set; }
     

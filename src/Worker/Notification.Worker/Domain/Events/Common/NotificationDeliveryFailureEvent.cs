@@ -5,8 +5,13 @@ using Notification.Core.Common.CQRS;
 namespace Notification.Worker.Domain.Events.Common;
 
 [DataContract]
-public class NotificationDeliveryFailureEvent : Event
+public abstract class NotificationDeliveryFailureEvent : Event
 {
+    protected NotificationDeliveryFailureEvent(BsonObjectId aggregateId)
+    {
+        AggregateId = aggregateId;
+    }
+
     [DataMember]
     public BsonObjectId AggregateId { get; private set; }
 }

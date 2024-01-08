@@ -6,34 +6,34 @@ using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers;
 
-public class SendEmailWorker : BaseWorker
+public class SendLetterWorker : BaseWorker
 {
-    public SendEmailWorker(ILogger<SendSMSWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
+    public SendLetterWorker(ILogger<SendLetterWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {
         _logger = logger;
-        _serviceProvider = serviceProvider;
- 
     }
 
-    private readonly ILogger<SendSMSWorker> _logger;
-    private readonly IServiceProvider _serviceProvider;
+    private readonly ILogger<SendLetterWorker> _logger;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("[WORKER[SEND-EMAIL] - Creating process...");
+        Console.WriteLine("[WORKER[SEND-Letter] - Creating process...");
+
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("[WORKER[SEND-EMAIL] - Starting process...");
+            Console.WriteLine("[WORKER[SEND-Letter] - Starting process...");
             using (var scope = _serviceProvider.CreateScope())
             {
                 var messageBus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
-                var mediatorHandler = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
-
-                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-Email", Process,
+                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-Letter", Process,
                     stoppingToken);
 
+                Console.WriteLine("[WORKER[SEND-Letter] - Awaiting process...");
+                await Task.Delay(-1, stoppingToken);
             }
         }
+       
     }
  
 }
+

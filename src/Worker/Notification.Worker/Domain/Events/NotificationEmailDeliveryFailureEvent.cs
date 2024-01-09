@@ -7,7 +7,7 @@ public class NotificationEmailDeliveryFailureEvent : NotificationDeliveryFailure
 {
     public NotificationEmailDeliveryFailureEvent(BsonObjectId aggregateId) : base(aggregateId)
     {
-        RouterKey = "sms-delivery-failure-event";
+        RouterKey = "email-delivery-failure-event";
     }
     
     

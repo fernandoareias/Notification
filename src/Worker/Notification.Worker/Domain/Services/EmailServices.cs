@@ -1,22 +1,23 @@
 using Notification.Worker.Domain.Entities;
 using Notification.Worker.Domain.Services.Interfaces;
+using Notification.Worker.Infrastructure.ExternalServices.Email.DTOs.Requests;
 using Notification.Worker.Infrastructure.ExternalServices.Email.Interfaces;
 
 namespace Notification.Worker.Domain.Services;
 
 public class EmailServices : IEmailServices
 {
-    public EmailServices(IEmailExternalService smsExternalServices, ILogger<EmailServices> logger)
+    public EmailServices(IEmailExternalService emailExternalService)
     {
-        _smsExternalServices = smsExternalServices;
-        _logger = logger;
+        _emailExternalService = emailExternalService;
     }
 
-    private readonly IEmailExternalService _smsExternalServices;
-    private readonly ILogger<EmailServices> _logger;
+    private readonly IEmailExternalService _emailExternalService;
     
-    public Task<Sent> Process(Notification aggregate)
+    public async Task<Sent> Process(Notification aggregate)
     {
-        throw new NotImplementedException();
+        var request = new SendEmailRequest();
+        var response = await _emailExternalService.Send(request);
+        return new Sent(response.ExternalId, response.PartnerSystem, response.Success);
     }
 }

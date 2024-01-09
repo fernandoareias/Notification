@@ -6,8 +6,10 @@ namespace Notification.Worker.Infrastructure.ExternalServices.SMS;
 
 public class SMSExternalServices : ISMSExternalServices
 {
-    public Task<SendSMSResponse> Send(SendSMSRequest request)
+    public async Task<SendSMSResponse> Send(SendSMSRequest request)
     {
-        throw new NotImplementedException();
+        // TODO: REQUEST LOGIC TO PARTNER
+
+        return new SendSMSResponse();
     }
 }

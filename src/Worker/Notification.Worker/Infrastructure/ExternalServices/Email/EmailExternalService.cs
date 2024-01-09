@@ -6,8 +6,10 @@ namespace Notification.Worker.Infrastructure.ExternalServices.Email;
 
 public class EmailExternalService : IEmailExternalService
 {
-    public Task<SendEmailResponse> Send(SendEmailRequest request)
+    public async Task<SendEmailResponse> Send(SendEmailRequest request)
     {
-        throw new NotImplementedException();
+        // TODO: REQUEST LOGIC TO PARTNER
+        
+        return new SendEmailResponse();
     }
 }

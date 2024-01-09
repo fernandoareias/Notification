@@ -6,8 +6,10 @@ namespace Notification.Worker.Infrastructure.ExternalServices.Push;
 
 public class PushExternalService : IPushExternalService
 {
-    public Task<SendPushResponse> Send(SendPushRequest request)
+    public async Task<SendPushResponse> Send(SendPushRequest request)
     {
-        throw new NotImplementedException();
+        // TODO: REQUEST LOGIC TO PARTNER
+        
+        return new SendPushResponse();
     }
 }

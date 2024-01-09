@@ -6,8 +6,10 @@ namespace Notification.Worker.Infrastructure.ExternalServices.Letter;
 
 public class LetterExternalService : ILetterExternalService
 {
-    public Task<SendLetterResponse> Send(SendLetterRequest request)
+    public async Task<SendLetterResponse> Send(SendLetterRequest request)
     {
-        throw new NotImplementedException();
+        // TODO: REQUEST LOGIC TO PARTNER
+        
+        return new SendLetterResponse();
     }
 }

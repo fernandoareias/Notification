@@ -2,6 +2,7 @@ using Notification.Worker.Domain.Common;
 using Notification.Worker.Domain.Entities;
 using Notification.Worker.Domain.Enums;
 using Notification.Worker.Domain.Services.Interfaces;
+using Notification.Worker.Infrastructure.ExternalServices.SMS.DTOs.Requests;
 using Notification.Worker.Infrastructure.ExternalServices.SMS.Interfaces;
 
 namespace Notification.Worker.Domain.Services;
@@ -18,8 +19,10 @@ public class SMSServices : ISMSServices
     private readonly ILogger<SMSServices> _logger;
 
     
-    public Task<Sent> Process(Notification aggregate)
+    public async Task<Sent> Process(Notification aggregate)
     {
-        throw new NotImplementedException();
+        var request = new SendSMSRequest();
+        var response = await _smsExternalServices.Send(request);
+        return new Sent(response.ExternalId, response.PartnerSystem, response.Success);
     }
 }

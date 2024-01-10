@@ -10,7 +10,10 @@ public static class SendNotificationFactory
     private static Dictionary<ENotificationType, Type> command = new Dictionary<ENotificationType, Type>()
     {
         { ENotificationType.SMS, typeof(SendNotificationSMSCommand)},
-        { ENotificationType.Email, typeof(SendNotificationEmailCommand)}
+        { ENotificationType.Email, typeof(SendNotificationEmailCommand)},
+        { ENotificationType.Letter, typeof(SendNotificationLetterCommand)},
+        { ENotificationType.Push, typeof(SendNotificationPushCommand)},
+        { ENotificationType.WhatsApp, typeof(SendNotificationWhatsAppCommand)},
     };
 
     public static SendNotificationCommand Create(CreateNotificationCommand request)

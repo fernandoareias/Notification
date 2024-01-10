@@ -19,6 +19,7 @@
         <Link>.dockerignore</Link>
       </Content>
       <Content Remove="Domain\Common\**" />
+      <Content Remove="Domain\Exceptions\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,13 +30,16 @@
     <ItemGroup>
       <Compile Remove="Worker.cs" />
       <Compile Remove="Domain\Common\**" />
+      <Compile Remove="Domain\Exceptions\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Domain\Common\**" />
+      <EmbeddedResource Remove="Domain\Exceptions\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Domain\Common\**" />
+      <None Remove="Domain\Exceptions\**" />
     </ItemGroup>
 </Project>

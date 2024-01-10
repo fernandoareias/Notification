@@ -31,7 +31,7 @@ public class SendEmailWorker : BaseWorker
 
                 messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-Email", Process,
                     stoppingToken);
-
+                await Task.Delay(-1, stoppingToken);
             }
         }
     }

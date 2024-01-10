@@ -5,8 +5,14 @@ namespace Notification.Worker.Domain.Events;
 
 public class NotificationWhatsAppDeliveryFailureEvent : NotificationDeliveryFailureEvent
 {
-    public NotificationWhatsAppDeliveryFailureEvent(BsonObjectId aggregateId) : base(aggregateId)
+    protected NotificationWhatsAppDeliveryFailureEvent()
     {
+        
+    }
+    
+    public NotificationWhatsAppDeliveryFailureEvent(string aggregateId) : base(aggregateId)
+    {
+        Exchange = "notifications-failure";
         RouterKey = "whatsapp-delivery-failure-event";
     }
     

@@ -7,11 +7,15 @@ namespace Notification.Worker.Domain.Events.Common;
 [DataContract]
 public abstract class NotificationDeliveryFailureEvent : Event
 {
-    protected NotificationDeliveryFailureEvent(BsonObjectId aggregateId)
+    protected NotificationDeliveryFailureEvent()
     {
-        AggregateId = aggregateId;
+        
+    }
+    protected NotificationDeliveryFailureEvent(string correlationId)
+    {
+        CorrelationId = correlationId;
     }
 
     [DataMember]
-    public BsonObjectId AggregateId { get; private set; }
+    public string CorrelationId { get; private set; }
 }

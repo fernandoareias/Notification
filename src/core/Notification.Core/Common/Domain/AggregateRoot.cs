@@ -9,4 +9,6 @@ public abstract class AggregateRoot : Entity
     {
         _events.Add(@event);
     }
+
+    public void Clear() => _events.Clear();
 }

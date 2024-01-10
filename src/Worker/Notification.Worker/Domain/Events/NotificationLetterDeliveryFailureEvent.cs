@@ -5,8 +5,13 @@ namespace Notification.Worker.Domain.Events;
 
 public class NotificationLetterDeliveryFailureEvent : NotificationDeliveryFailureEvent
 {
-    public NotificationLetterDeliveryFailureEvent(BsonObjectId aggregateId) : base(aggregateId)
+    protected NotificationLetterDeliveryFailureEvent()
     {
+        
+    }
+    public NotificationLetterDeliveryFailureEvent(string aggregateId) : base(aggregateId)
+    {
+        Exchange = "notifications-failure";
         RouterKey = "letter-delivery-failure-event";
     }
     

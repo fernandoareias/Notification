@@ -8,7 +8,7 @@ namespace Notification.Worker.Domain;
 
 public class Notification : AggregateRoot
 {
-    public Notification(Guid correlationId, string recipient, ENotificationType type, List<Parameter> parameters)
+    public Notification(string correlationId, string recipient, ENotificationType type, List<Parameter> parameters)
     {
         CorrelationId = correlationId;
         Recipient = recipient;
@@ -21,8 +21,8 @@ public class Notification : AggregateRoot
         
     }
 
-    [BsonElement("Recipient")]
-    public Guid CorrelationId { get; private set; }
+    [BsonElement("CorrelationId")]
+    public string CorrelationId { get; private set; }
     
     [BsonElement("Recipient")]
     public string Recipient { get; private set; }
@@ -46,7 +46,7 @@ public class Notification : AggregateRoot
             throw new InvalidOperationException("Already sent");
         
         if(!sent.Success)
-            AddEvent(NotificationDeliveryFailureEventFactory.Create(Type, _id));
+            AddEvent(NotificationDeliveryFailureEventFactory.Create(Type, CorrelationId));
         
         _sents.Add(sent);
     }

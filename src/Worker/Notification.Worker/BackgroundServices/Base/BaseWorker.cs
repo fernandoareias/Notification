@@ -14,13 +14,13 @@ public abstract class BaseWorker : BackgroundService
  
     }
     
-    protected void Process(CreateNotificationCommand request)
+    protected async Task Process(CreateNotificationCommand request)
     {
         using (var scope = _serviceProvider.CreateScope())
         {
             var mediatorHandler = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
             var command = SendNotificationFactory.Create(request);
-            mediatorHandler.Send<CreateNotificationCommand>(command).GetAwaiter();
+            await mediatorHandler.Send<CreateNotificationCommand>(command);
         }
     }
 }

@@ -23,7 +23,7 @@ public class SendPushWorker : BaseWorker
             using (var scope = _serviceProvider.CreateScope())
             {
                 var messageBus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
-                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-PushNotification", Process,
+                messageBus.Subscribe<CreateNotificationCommand>("notifications", "send-notification-Push", Process,
                     stoppingToken);
 
                 Console.WriteLine("[WORKER[SEND-Push] - Awaiting process...");

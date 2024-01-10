@@ -1,3 +1,4 @@
+using MongoDB.Driver;
 using Notification.Worker.Data.Interfaces;
 using Notification.Worker.Data.Repositories.Interfaces;
 
@@ -7,5 +8,11 @@ public class NotificationRepository : BaseRepository<Domain.Notification>, INoti
 {
     public NotificationRepository(IMongoContext context) : base(context)
     {
+    }
+
+    public async Task<Domain.Notification> GetByCorrelationId(Guid correlationId)
+    {
+        var data = await DbSet.FindAsync(Builders<Domain.Notification>.Filter.Eq("CorrelationId", correlationId.ToString()));
+        return data.SingleOrDefault();
     }
 }

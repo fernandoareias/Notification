@@ -7,6 +7,9 @@ using Notification.Core.MessageBus.Configurations;
 using Notification.Core.MessageBus.Services;
 using Notification.Core.MessageBus.Services.Interfaces;
 using Notification.Worker;
+using Notification.Worker.Data;
+using Notification.Worker.Data.Interfaces;
+using Notification.Worker.Data.Repositories;
 using Notification.Worker.Domain.Services;
 using Notification.Worker.Domain.Services.Interfaces;
 using Notification.Worker.Infrastructure.ExternalServices.Email;
@@ -30,20 +33,25 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.Configure<MessageBusConfigs>(
             hostContext.Configuration.GetSection(nameof(MessageBusConfigs)));
  
-        services.AddScoped<IEmailServices, EmailServices>();
-        services.AddScoped<ILetterServices, LetterServices>();
-        services.AddScoped<IPushServices, PushServices>();
-        services.AddScoped<ISMSServices, SMSServices>();
-        services.AddScoped<IWhatsAppServices, WhatsAppServices>();
+        services.AddScoped<IMessageBus, MessageBus>();
+        services.AddScoped<IMongoContext, MongoContext>();
+        services.AddScoped<IUnitOfWork, MongoContext>();
+        services.AddScoped<Notification.Worker.Data.Repositories.Interfaces.INotificationRepository, NotificationRepository>();
         
         services.AddScoped<IMediatorHandler, MediatorHandler>();
         services.AddScoped<IEmailExternalService, EmailExternalService>();
         services.AddScoped<ILetterExternalService, LetterExternalService>();
         services.AddScoped<IPushExternalService, PushExternalService>();
         services.AddScoped<ISMSExternalServices, SMSExternalServices>();
-        
-        services.AddSingleton<IMessageBus, MessageBus>(); 
+        services.AddScoped<IWhatsAppExternalService, WhatsAppExternalService>();
 
+        services.AddScoped<IEmailServices, EmailServices>();
+        services.AddScoped<ILetterServices, LetterServices>();
+        services.AddScoped<IPushServices, PushServices>();
+        services.AddScoped<ISMSServices, SMSServices>();
+        services.AddScoped<IWhatsAppServices, WhatsAppServices>();
+
+        
         services.AddHostedService<SendSMSWorker>();
         services.AddHostedService<SendEmailWorker>();
         services.AddHostedService<SendLetterWorker>();

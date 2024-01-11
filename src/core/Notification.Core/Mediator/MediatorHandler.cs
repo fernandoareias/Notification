@@ -13,6 +13,11 @@ public class MediatorHandler : IMediatorHandler
         _mediator = mediator;
     }
 
+    public async Task Publish<TEvent>(TEvent @event) where TEvent : Event
+    {
+        await _mediator.Publish(@event);
+    }
+
     public async Task<IActionResult> Send<TCommand>(Command command) where TCommand : Command
     {
         return await _mediator.Send(command);

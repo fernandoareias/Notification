@@ -21,6 +21,7 @@ using Notification.Worker.Infrastructure.ExternalServices.Push.Interfaces;
 using Notification.Worker.Infrastructure.ExternalServices.SMS;
 using Notification.Worker.Infrastructure.ExternalServices.SMS.Interfaces;
 using Notification.Worker.Workers;
+using Notification.Worker.Workers.Events;
 using ServiceCollectionExtensions = Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -57,6 +58,12 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddHostedService<SendLetterWorker>();
         services.AddHostedService<SendPushWorker>();
         services.AddHostedService<SendWhatsAppWorker>();
+        
+        services.AddHostedService<NotificationSMSDeliveryFailureEventWorker>();
+        services.AddHostedService<NotificationEmailDeliveryFailureEventWorker>();
+        services.AddHostedService<NotificationLetterDeliveryFailureEventWorker>();
+        services.AddHostedService<NotificationPushDeliveryFailureEventWorker>();
+        services.AddHostedService<NotificationWhatsAppDeliveryFailureEventWorker>();
     })
     .Build();
 

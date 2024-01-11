@@ -4,11 +4,11 @@ using Notification.Worker.Application.Commands.Factories;
 
 namespace Notification.Worker.Workers.Base;
 
-public abstract class BaseWorker : BackgroundService
+public abstract class CreateNotificationCommandWorker : BackgroundService
 {
     protected readonly IServiceProvider _serviceProvider;
     
-    public BaseWorker(IServiceProvider serviceProvider)
+    public CreateNotificationCommandWorker(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
  

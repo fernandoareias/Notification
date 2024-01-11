@@ -6,7 +6,7 @@ using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers;
 
-public class SendSMSWorker : BaseWorker
+public class SendSMSWorker : CreateNotificationCommandWorker
 {
     public SendSMSWorker(ILogger<SendSMSWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {

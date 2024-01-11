@@ -4,7 +4,7 @@ using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers;
  
-public class SendPushWorker : BaseWorker
+public class SendPushWorker : CreateNotificationCommandWorker
 {
     public SendPushWorker(ILogger<SendPushWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {

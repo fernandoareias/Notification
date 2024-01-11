@@ -42,4 +42,8 @@
       <None Remove="Domain\Common\**" />
       <None Remove="Domain\Exceptions\**" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\Events\" />
+    </ItemGroup>
 </Project>

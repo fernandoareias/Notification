@@ -4,7 +4,7 @@ using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers;
  
-public class SendWhatsAppWorker : BaseWorker
+public class SendWhatsAppWorker : CreateNotificationCommandWorker
 {
     public SendWhatsAppWorker(ILogger<SendWhatsAppWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {

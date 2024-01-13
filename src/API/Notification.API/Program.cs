@@ -26,7 +26,7 @@ builder.Services.Configure<MessageBusConfigs>(
     builder.Configuration.GetSection(nameof(MessageBusConfigs)));
 
 builder.Services.AddScoped<IMediatorHandler, MediatorHandler>();
-builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddSingleton<IMessageBus, MessageBus>();
 
 var app = builder.Build();
 

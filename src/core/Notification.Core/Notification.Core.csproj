@@ -12,6 +12,7 @@
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+      <PackageReference Include="MongoDB.Bson" Version="2.23.1" />
       <PackageReference Include="Polly" Version="8.2.0" />
       <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
       <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
@@ -19,6 +20,15 @@
 
     <ItemGroup>
       <Compile Remove="Class1.cs" />
+      <Compile Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Domain\Common\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Domain\Common\**" />
     </ItemGroup>
 
 </Project>

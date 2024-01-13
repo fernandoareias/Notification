@@ -1,5 +1,5 @@
 using System.Runtime.Serialization;
-using Notification.API.Domain.Enums;
+using Notification.Core.Domain.Enums;
 
 namespace Notification.API.DTOs.Requests;
 
@@ -10,7 +10,7 @@ public class CreateNotificationRequest
     public string Recipient { get; set; }
     
     [DataMember] 
-    public NotificationType Type { get; set; }
+    public ENotificationType Type { get; set; }
     
     [DataMember]
     public int MessageLayout { get; set; }

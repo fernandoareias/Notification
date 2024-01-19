@@ -4,9 +4,19 @@ using MediatR;
 namespace Notification.Core.Common.CQRS;
 
 public abstract class Event : Message, INotification
-{
-    [JsonIgnore]
-    public string Exchange { get; protected set; }
-    [JsonIgnore]
-    public string RouterKey { get; protected set; }
+{ 
+    protected Event(string exchange, string routerKey)
+    {
+        Exchange = exchange;
+        RouterKey = routerKey;
+    }
+
+    public Event()
+    {
+        
+    }
+    
+    
+    public string Exchange { get; private set; }
+    public string RouterKey { get; private set; }
 }

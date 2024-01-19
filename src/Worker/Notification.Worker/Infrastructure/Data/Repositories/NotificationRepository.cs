@@ -10,7 +10,7 @@ public class NotificationRepository : BaseRepository<Domain.Notification>, INoti
     {
     }
 
-    public async Task<Domain.Notification> GetByCorrelationId(Guid correlationId)
+    public async Task<Domain.Notification> GetByCorrelationId(string correlationId)
     {
         var data = await DbSet.FindAsync(Builders<Domain.Notification>.Filter.Eq("CorrelationId", correlationId.ToString()));
         return data.SingleOrDefault();

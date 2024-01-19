@@ -20,6 +20,15 @@ public class Notification : AggregateRoot
     {
         
     }
+    
+    protected Notification(string correlationId, string recipient, ENotificationType type, List<Parameter> parameters, List<Sent> sent)
+    {
+        CorrelationId = correlationId;
+        Recipient = recipient;
+        Type = type;
+        Parameters = parameters;
+        Sent = sent;
+    }
 
     [BsonElement("CorrelationId")]
     public string CorrelationId { get; private set; }
@@ -33,22 +42,20 @@ public class Notification : AggregateRoot
     [BsonElement("Parameters")]
     public List<Parameter> Parameters { get; private set; }
 
-    private List<Sent> _sents = new List<Sent>();
-
     [BsonElement("Sent")] 
-    public IReadOnlyCollection<Sent> Sent => _sents;
+    public List<Sent> Sent { get; private set; } = new List<Sent>();
     
     public async Task Send(IDomainService<Sent, Notification> service)
     {
         var sent =  await service.Process(this);
 
-        if (_sents.Any(c => c.ExternalId == sent.ExternalId))
+        if (Sent.Any(c => c.ExternalId == sent.ExternalId))
             throw new InvalidOperationException("Already sent");
         
         if(!sent.Success)
             AddEvent(NotificationDeliveryFailureEventFactory.Create(Type, CorrelationId));
         
-        _sents.Add(sent);
+        Sent.Add(sent);
     }
 
 }

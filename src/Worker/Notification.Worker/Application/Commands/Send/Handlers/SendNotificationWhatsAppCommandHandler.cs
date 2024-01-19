@@ -22,7 +22,7 @@ public class SendNotificationWhatsAppCommandHandler: IRequestHandler<SendNotific
     public async Task<IActionResult> Handle(SendNotificationWhatsAppCommand request, CancellationToken cancellationToken)
     {
         bool create = false;
-        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId);
+        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId.ToString());
 
         if (notification != null && notification.Sent.Any(c => !c.Success))
             throw new DomainException("Already processed");

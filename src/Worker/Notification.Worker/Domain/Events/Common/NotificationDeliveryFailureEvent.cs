@@ -1,21 +1,18 @@
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using Notification.Core.Common.CQRS;
 
 namespace Notification.Worker.Domain.Events.Common;
 
-[DataContract]
+
 public abstract class NotificationDeliveryFailureEvent : Event
 {
-    protected NotificationDeliveryFailureEvent()
-    {
-        
-    }
-    protected NotificationDeliveryFailureEvent(string correlationId)
+    [JsonConstructor]
+    protected NotificationDeliveryFailureEvent(string correlationId, string exchange, string routerKey) : base(exchange, routerKey)
     {
         CorrelationId = correlationId;
     }
 
-    [DataMember]
     public string CorrelationId { get; private set; }
 }

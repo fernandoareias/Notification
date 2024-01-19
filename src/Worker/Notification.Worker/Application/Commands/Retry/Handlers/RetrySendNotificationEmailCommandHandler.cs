@@ -19,7 +19,7 @@ public class RetrySendNotificationEmailCommandHandler : IRequestHandler<RetrySen
     
     public async Task<IActionResult> Handle(RetrySendNotificationEmailCommand request, CancellationToken cancellationToken)
     {
-        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId);
+        var notification = await _notificationRepository.GetByCorrelationId(request.CorrelationId);
 
         if (notification == null)
             throw new DomainException("Notification not exists.");

@@ -1,19 +1,13 @@
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using Notification.Worker.Domain.Events.Common;
 
 namespace Notification.Worker.Domain.Events;
 
 public class NotificationEmailDeliveryFailureEvent : NotificationDeliveryFailureEvent
-{
-    protected NotificationEmailDeliveryFailureEvent()
-    {
-        
+{ 
+    public NotificationEmailDeliveryFailureEvent(string correlationId) : base(correlationId, "notifications-failure", "email-delivery-failure-event")
+    { 
     }
-    public NotificationEmailDeliveryFailureEvent(string aggregateId) : base(aggregateId)
-    {
-        Exchange = "notifications-failure";
-        RouterKey = "email-delivery-failure-event";
-    }
-    
-    
+     
 }

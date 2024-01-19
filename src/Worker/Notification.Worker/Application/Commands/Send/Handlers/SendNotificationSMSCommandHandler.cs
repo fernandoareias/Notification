@@ -22,7 +22,7 @@ public class SendNotificationSMSCommandHandler : IRequestHandler<SendNotificatio
     public async Task<IActionResult> Handle(SendNotificationSMSCommand request, CancellationToken cancellationToken)
     {
         bool create = false;
-        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId);
+        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId.ToString());
 
         if (notification != null && notification.Sent.Any(c => !c.Success))
             throw new DomainException("Already processed");

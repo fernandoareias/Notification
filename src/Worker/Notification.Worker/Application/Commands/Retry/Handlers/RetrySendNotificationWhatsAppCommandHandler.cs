@@ -19,7 +19,7 @@ public class RetrySendNotificationWhatsAppCommandHandler : IRequestHandler<Retry
     
     public async Task<IActionResult> Handle(RetrySendNotificationWhatsAppCommand request, CancellationToken cancellationToken)
     {
-        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.AggregateId);
+        Domain.Notification notification = await _notificationRepository.GetByCorrelationId(request.CorrelationId);
 
         if (notification == null)
             throw new DomainException("Notification not exists.");

@@ -48,6 +48,6 @@ public class SendNotificationLetterCommandHandler : IRequestHandler<SendNotifica
     private Domain.Notification Create(SendNotificationLetterCommand request)
     {
         var parameters = request.Params.Select(c => new Parameter(c.Key, c.Value)).ToList();
-        return new Domain.Notification(request.AggregateId.ToString(), request.Recipient, ENotificationType.Email , parameters);
+        return new Domain.Notification(request.AggregateId.ToString(), request.Recipient, ENotificationType.Letter , parameters);
     }
 }

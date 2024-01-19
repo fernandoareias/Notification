@@ -48,7 +48,7 @@ public class SendNotificationWhatsAppCommandHandler: IRequestHandler<SendNotific
     private Domain.Notification Create(SendNotificationWhatsAppCommand request)
     {
         var parameters = request.Params.Select(c => new Parameter(c.Key, c.Value)).ToList();
-        return new Domain.Notification(request.AggregateId.ToString(), request.Recipient, ENotificationType.Email , parameters);
+        return new Domain.Notification(request.AggregateId.ToString(), request.Recipient, ENotificationType.WhatsApp , parameters);
     }
     
 }

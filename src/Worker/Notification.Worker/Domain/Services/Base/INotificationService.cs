@@ -3,6 +3,6 @@ using Notification.Worker.Domain.Entities;
 
 namespace Notification.Worker.Domain.Services.Base;
 
-public interface INotificationExternalService: IDomainService<Sent, Notification>
+public interface INotificationService: IDomainService<Sent, Notification>
 {
 }

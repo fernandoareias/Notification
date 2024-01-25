@@ -23,4 +23,9 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Usings.cs" />
+      <Compile Remove="UnitTest1.cs" />
+    </ItemGroup>
+
 </Project>

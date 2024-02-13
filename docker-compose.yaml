@@ -1,6 +1,92 @@
 version: "3.4"
 
 services:
+  web-api:
+    image: notification-api:1.0
+    container_name: web-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile.API
+    networks:
+      - common.network
+    cpu_shares: 215
+    cpu_quota: 50000
+    mem_limit: 120m
+    env_file: env.conf
+    depends_on:
+      - rabbitmq
+
+  web-api2:
+    image: notification-api:1.0
+    container_name: web-api2
+    build:
+      context: .
+      dockerfile: ./Dockerfile.API
+    networks:
+      - common.network
+    cpu_shares: 215
+    cpu_quota: 50000
+    mem_limit: 120m
+    env_file: env.conf
+    depends_on:
+      - rabbitmq
+
+  nginx:
+    build:
+      dockerfile: ./nginx/Dockerfile
+      context: .
+    image: nginx
+    container_name: load-balancer
+    ports:
+      - "80:80"
+    networks:
+      - common.network
+    depends_on:
+      - "web-api"
+      - "web-api2"
+
+  worker:
+    image: notification-worker:1.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile.Worker
+    networks:
+      - common.network
+    cpu_shares: 512
+    cpu_quota: 50000
+    mem_limit: 250m
+    env_file: env.conf
+    depends_on:
+      - rabbitmq
+
+  worker2:
+    image: notification-worker:1.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile.Worker
+    networks:
+      - common.network
+    cpu_shares: 512
+    cpu_quota: 50000
+    mem_limit: 250m
+    env_file: env.conf
+    depends_on:
+      - rabbitmq
+
+  worker3:
+    image: notification-worker:1.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile.Worker
+    networks:
+      - common.network
+    cpu_shares: 512
+    cpu_quota: 50000
+    mem_limit: 512m
+    env_file: env.conf
+    depends_on:
+      - rabbitmq
+
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -13,13 +99,17 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  redis:
-    image: redis
-    command: redis-server --requirepass Redis2019!
+  rabbitmq-exporter:
+    image: kbudde/rabbitmq-exporter
+    container_name: "rabbitmq-exporter"
+    ports:
+      - "9419:9419" # exposed on container providing the port
     networks:
       - common.network
-    ports:
-      - "6379:6379"
+    environment:
+      - RABBIT_URL=http://host.docker.internal:15672
+      - RABBIT_USER=admin
+      - RABBIT_PASSWORD=admin
 
   mongo1:
     image: mongo:7.0
@@ -48,6 +138,36 @@ services:
       - common.network
     depends_on:
       - mongo1
+
+  node-exporter:
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)"
+    expose:
+      - 9100
+    image: prom/node-exporter:v1.2.0
+    networks:
+      - "common.network"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
 
   prometheus:
     build:

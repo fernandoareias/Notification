@@ -1,0 +1,26 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["src/Worker/Notification.Worker/Notification.Worker.csproj", "src/Worker/Notification.Worker/"]
+COPY ["src/core/Notification.Core.MessageBus/Notification.Core.MessageBus.csproj", "src/core/Notification.Core.MessageBus/"]
+COPY ["src/core/Notification.Core/Notification.Core.csproj", "src/core/Notification.Core/"]
+COPY ["src/Worker/Notification.Worker.Application/Notification.Worker.Application.csproj", "src/Worker/Notification.Worker.Application/"]
+COPY ["src/Worker/Notification.Worker.Infrastructure/Notification.Worker.Infrastructure.csproj", "src/Worker/Notification.Worker.Infrastructure/"]
+COPY ["src/Worker/Notification.Worker.Domain/Notification.Worker.Domain.csproj", "src/Worker/Notification.Worker.Domain/"]
+COPY ["src/Worker/Notification.Worker.Domain.Services/Notification.Worker.Domain.Services.csproj", "src/Worker/Notification.Worker.Domain.Services/"]
+RUN dotnet restore "src/Worker/Notification.Worker/Notification.Worker.csproj"
+COPY . .
+WORKDIR "/src/src/Worker/Notification.Worker"
+RUN dotnet build "Notification.Worker.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Notification.Worker.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Notification.Worker.dll"]

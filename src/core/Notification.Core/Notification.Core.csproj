@@ -29,6 +29,16 @@
 
     <ItemGroup>
       <None Remove="Domain\Common\**" />
+      <None Remove="Common\Validators\" />
+      <None Remove="Common\Validators\Interfaces\" />
+      <None Remove="Common\Enums\" />
+      <None Remove="Mediator\Common\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\Validators\" />
+      <Folder Include="Common\Validators\Interfaces\" />
+      <Folder Include="Common\Enums\" />
+      <Folder Include="Mediator\Common\" />
+    </ItemGroup>
 </Project>

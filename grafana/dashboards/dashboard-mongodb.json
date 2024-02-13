@@ -62,7 +62,7 @@
       "pluginVersion": "7.3.1",
       "targets": [
         {
-          "expr": "mongodb_dbstats_dataSize{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"} / 100000000",
+          "expr": "mongodb_dbstats_dataSize{database=\"NotificationDB\"} / 100000000",
           "interval": "",
           "legendFormat": "ShortenerStore",
           "refId": "A"
@@ -308,7 +308,10 @@
       "datasource": "prometheus-metrics",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -319,7 +322,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 100000
               }
             ]
           }
@@ -334,7 +337,9 @@
       },
       "id": 10,
       "options": {
-        "displayMode": "gradient",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -343,36 +348,22 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true
+        "textMode": "auto"
       },
       "pluginVersion": "7.3.1",
       "targets": [
         {
-          "expr": "mongodb_collstats_storageStats_count{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"Shortened\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"}",
+          "expr": "mongodb_collstats_storageStats_count{collection=\"Notification\",database=\"NotificationDB\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "Shortened",
+          "legendFormat": "{{collection}}",
           "refId": "A"
-        },
-        {
-          "expr": "mongodb_collstats_storageStats_count{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"Company\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"}",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Company",
-          "refId": "B"
-        },
-        {
-          "expr": "mongodb_collstats_storageStats_count{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"User\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"}",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "User",
-          "refId": "C"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Total documents in collection",
-      "type": "bargauge"
+      "type": "stat"
     },
     {
       "datasource": "prometheus-metrics",
@@ -419,27 +410,11 @@
       "repeat": null,
       "targets": [
         {
-          "expr": "mongodb_collstats_storageStats_size{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"Company\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"}  / 100000000",
+          "expr": "mongodb_collstats_storageStats_size{database=\"NotificationDB\"} / 100000000",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "Company",
+          "legendFormat": "{{collection}}",
           "refId": "B"
-        },
-        {
-          "expr": "mongodb_collstats_storageStats_size{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"User\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"} / 100000000",
-          "interval": "",
-          "legendFormat": "User",
-          "refId": "C"
-        },
-        {
-          "expr": "mongodb_collstats_storageStats_size{cl_id=\"6594af29b42422654d4ee733\",cl_role=\"\",collection=\"Shortened\",database=\"ShortenerStore\",rs_nm=\"rs0\",rs_state=\"1\"} / 100000000",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Shortened",
-          "refId": "A"
         }
       ],
       "timeFrom": null,

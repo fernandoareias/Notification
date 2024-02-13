@@ -1,9 +1,10 @@
 using System.Runtime.Serialization;
+using Notification.Core.Common.CQRS;
 
 namespace Notification.API.Application.Commands.Views;
 
 [DataContract]
-public class CreateNotificationCommandView
+public class CreateNotificationCommandView : View
 {
     protected CreateNotificationCommandView()
     {

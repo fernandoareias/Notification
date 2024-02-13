@@ -12,7 +12,7 @@ public class SendEmailWorker : CreateNotificationCommandWorker
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
- 
+
     }
 
     private readonly ILogger<SendSMSWorker> _logger;
@@ -35,5 +35,5 @@ public class SendEmailWorker : CreateNotificationCommandWorker
             }
         }
     }
- 
+
 }

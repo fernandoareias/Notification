@@ -43,12 +43,12 @@ public class CreateNotificationParamsCommand
     }
     public CreateNotificationParamsCommand(CreateNotificationParamsRequest request)
     {
-        Key = request.Key;
-        Value = request.Value;
+        Key = request?.Key;
+        Value = request?.Value;
     }
     [DataMember]
-    public string Key { get; private set; }
+    public string? Key { get; private set; }
     
     [DataMember]
-    public string Value { get; private set; }
+    public string? Value { get; private set; }
 }

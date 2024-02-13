@@ -29,7 +29,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
          
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-        ServiceCollectionExtensions.AddMediatR(services, cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+        ServiceCollectionExtensions.AddMediatR(services, cfg=>cfg.RegisterServicesFromAssemblies(typeof(Notification.Worker.Application.Commands.CreateNotificationCommand).Assembly));
 
         services.Configure<MessageBusConfigs>(
             hostContext.Configuration.GetSection(nameof(MessageBusConfigs)));

@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +35,10 @@
     <ItemGroup>
       <None Remove="Domain\Notification\**" />
       <None Remove="DTOs\Responses\**" />
+      <None Remove="Middlewares\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Middlewares\" />
+    </ItemGroup>
 </Project>

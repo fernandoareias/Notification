@@ -1,12 +1,11 @@
 using Notification.Core.Mediator.Interfaces;
 using Notification.Core.MessageBus.Services.Interfaces;
-using Notification.Worker.Application.Commands;
 using Notification.Worker.Domain.Events;
 using Notification.Worker.Workers.Base;
 
 namespace Notification.Worker.Workers.Events;
- 
-public class NotificationEmailDeliveryFailureEventWorker : NotificationDeliveryFailureEventWorker 
+
+public class NotificationEmailDeliveryFailureEventWorker : NotificationDeliveryFailureEventWorker
 {
     public NotificationEmailDeliveryFailureEventWorker(ILogger<NotificationEmailDeliveryFailureEventWorker> logger, IServiceProvider serviceProvider) : base(serviceProvider)
     {
@@ -34,5 +33,5 @@ public class NotificationEmailDeliveryFailureEventWorker : NotificationDeliveryF
             }
         }
     }
-     
+
 }

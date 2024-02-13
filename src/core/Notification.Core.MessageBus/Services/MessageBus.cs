@@ -21,13 +21,14 @@ public class MessageBus : IMessageBus
     public MessageBus(IOptions<MessageBusConfigs> config, ILogger<MessageBus> logger)
     {
         _busConfigs = config.Value; 
-        _logger = logger; 
+        _logger = logger;
+        factory = new ConnectionFactory { Uri = new Uri(_busConfigs.Host) };
     }
     
     private bool _isConnected = false;
     private IConnection _connection;
     private IModel _consumerChannel;
-    private ConnectionFactory factory = new ConnectionFactory() { Uri = new Uri("amqp://admin:admin@localhost:5672/") };
+    private ConnectionFactory factory;
 
     private readonly IDictionary<string, string> _exchange = new Dictionary<string, string>();
     private readonly IDictionary<string, string> _routingKeys = new Dictionary<string, string>();
@@ -53,7 +54,7 @@ public class MessageBus : IMessageBus
         var policy = RetryPolicy.Handle<SocketException>().Or<BrokerUnreachableException>()
             .WaitAndRetry(_busConfigs.RetryCount, op => TimeSpan.FromSeconds(Math.Pow(2, op)), (ex, time) =>
             {
-                Console.WriteLine("Couldn't connect to RabbitMQ server...");
+                Console.WriteLine($"Couldn't connect to RabbitMQ {factory.Uri}");
             });
 
         policy.Execute(() =>

@@ -10,13 +10,21 @@ public class CreateNotificationCommandView : View
     {
         
     }
-    
-    public CreateNotificationCommandView(CreateNotificationCommand command)
+     
+
+    public CreateNotificationCommandView(Guid correlationId, DateTime createdAt)
     {
-        CorrelationId = command.AggregateId;
-        Runtime = DateTime.UtcNow - command.CreatedAt;
+
+        if (correlationId == Guid.Empty)
+            throw new ArgumentException(nameof(correlationId));
+
+        if (createdAt == DateTime.MinValue || createdAt == DateTime.MaxValue)
+            throw new ArgumentException(nameof(createdAt));
+
+        CorrelationId = correlationId;
+        Runtime = DateTime.UtcNow - createdAt;
     }
-    
+
     [DataMember]
     public Guid CorrelationId { get; private set; }
     

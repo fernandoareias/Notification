@@ -19,6 +19,6 @@ public class CreateNotificationCommandHandlers : IRequestHandler<CreateNotificat
     {
         _messageBus.Publish("notifications", "send-notification-" + request.Type.ToString(), request);
 
-        return new CreateNotificationCommandView(request);
+        return new CreateNotificationCommandView(request.AggregateId, request.CreatedAt);
     }
 }

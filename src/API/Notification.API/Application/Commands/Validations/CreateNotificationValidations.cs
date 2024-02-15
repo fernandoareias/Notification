@@ -8,7 +8,8 @@ public class CreateNotificationValidations: AbstractValidator<CreateNotification
     {
         RuleFor(c => c.Recipient)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .Length(11);
 
 
         RuleFor(c => c.AggregateId)

@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 using Notification.Core.Domain.Enums;
 using Notification.API.DTOs.Requests;
 using Notification.Core.Common.CQRS;
+using Notification.API.Application.Commands.Validations;
 
 namespace Notification.API.Application.Commands;
 
@@ -31,6 +32,12 @@ public class CreateNotificationCommand : Command
     
     [DataMember]
     public List<CreateNotificationParamsCommand> Params { get; set; }
+
+
+    public override bool IsValid()
+    {
+        return new CreateNotificationValidations().Validate(this).Errors.Any() is false;
+    }
 }
 
 

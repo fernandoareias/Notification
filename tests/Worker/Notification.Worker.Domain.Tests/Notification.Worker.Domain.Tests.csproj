@@ -23,25 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Application\" />
-    <None Remove="Application\Commands\" />
-    <None Remove="DTOs\" />
-    <None Remove="DTOs\Requests\" />
-    <None Remove="Application\Commands\Views\" />
-    <None Remove="Application\Commands\Handlers\" />
-    <None Remove="Controllers\" />
+    <ProjectReference Include="..\..\..\src\Worker\Notification.Worker.Domain\Notification.Worker.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Application\Commands\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="DTOs\Requests\" />
-    <Folder Include="Application\Commands\Views\" />
-    <Folder Include="Application\Commands\Handlers\" />
-    <Folder Include="Controllers\" />
+    <None Remove="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\API\Notification.API\Notification.API.csproj" />
-    <ProjectReference Include="..\..\..\src\core\Notification.Core\Notification.Core.csproj" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 </Project>

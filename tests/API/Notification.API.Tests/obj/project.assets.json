@@ -7804,6 +7804,7 @@
       "Microsoft.NET.Test.Sdk >= 17.1.0",
       "Moq >= 4.20.70",
       "Notification.API >= 1.0.0",
+      "Notification.Core >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.1",
       "xunit.runner.visualstudio >= 2.4.3"
@@ -7837,6 +7838,9 @@
           "projectReferences": {
             "/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Notification.API.csproj": {
               "projectPath": "/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Notification.API.csproj"
+            },
+            "/Users/f.areias/Documents/portfolio/Notification/src/core/Notification.Core/Notification.Core.csproj": {
+              "projectPath": "/Users/f.areias/Documents/portfolio/Notification/src/core/Notification.Core/Notification.Core.csproj"
             }
           }
         }

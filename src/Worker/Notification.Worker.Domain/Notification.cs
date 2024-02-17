@@ -8,8 +8,14 @@ namespace Notification.Worker.Domain;
 
 public class Notification : AggregateRoot
 {
-    public Notification(string correlationId, string recipient, ENotificationType type, List<Parameter> parameters)
+    public Notification(string correlationId, string recipient, ENotificationType type, List<Parameter>? parameters = null)
     {
+        if (string.IsNullOrWhiteSpace(correlationId))
+            throw new ArgumentException(nameof(correlationId));
+
+        if (string.IsNullOrWhiteSpace(recipient))
+            throw new ArgumentException(nameof(recipient));
+
         CorrelationId = correlationId;
         Recipient = recipient;
         Type = type;
@@ -40,7 +46,7 @@ public class Notification : AggregateRoot
     public ENotificationType Type { get; private set; }
     
     [BsonElement("Parameters")]
-    public List<Parameter> Parameters { get; private set; }
+    public List<Parameter>? Parameters { get; private set; }
 
     [BsonElement("Sent")] 
     public List<Sent> Sent { get; private set; } = new List<Sent>();

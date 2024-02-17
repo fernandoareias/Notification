@@ -265,6 +265,9 @@
             "projectReferences": {
               "/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Notification.API.csproj": {
                 "projectPath": "/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Notification.API.csproj"
+              },
+              "/Users/f.areias/Documents/portfolio/Notification/src/core/Notification.Core/Notification.Core.csproj": {
+                "projectPath": "/Users/f.areias/Documents/portfolio/Notification/src/core/Notification.Core/Notification.Core.csproj"
               }
             }
           }

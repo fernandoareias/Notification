@@ -1,5 +1,50 @@
 ﻿<Properties StartupConfiguration="{C0358355-BCED-4196-AB73-CF0DF70E80E5}|Default">
-  <MonoDevelop.Ide.ItemProperties.src.api.Notification.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/f.areias/Documents/portfolio/Notification/tests/API/Notification.API.Tests/Controllers/NotificationControllerTests.cs" relfile="tests/API/Notification.API.Tests/Controllers/NotificationControllerTests.cs" line="47" column="1" />
+      <Breakpoint file="/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Controllers/BaseController.cs" relfile="src/API/Notification.API/Controllers/BaseController.cs" line="48" column="1" />
+      <Breakpoint file="/Users/f.areias/Documents/portfolio/Notification/src/API/Notification.API/Controllers/BaseController.cs" relfile="src/API/Notification.API/Controllers/BaseController.cs" line="52" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.tests.api.Notification.API.Tests FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Worker/Notification.Worker.Infrastructure/ExternalServices/Email/EmailExternalService.cs">
+    <Files>
+      <File FileName="tests/Worker/Notification.Worker.Domain.Tests/NotificationTests.cs" Line="8" Column="28" IsPinned="True" />
+      <File FileName="src/Worker/Notification.Worker.Domain/Notification.cs" Line="59" Column="62" IsPinned="True" />
+      <File FileName="src/API/Notification.API/DTOs/Requests/CreateNotificationRequest.cs" />
+      <File FileName="tests/API/Notification.API.Tests/Application/Commands/CreateNotificationCommandTests.cs" />
+      <File FileName="src/API/Notification.API/Application/Commands/Validations/CreateNotificationValidations.cs" />
+      <File FileName="src/API/Notification.API/Application/Commands/Views/CreateNotificationCommandView.cs" />
+      <File FileName="src/API/Notification.API/Application/Commands/Handlers/CreateNotificationCommandHandlers.cs" />
+      <File FileName="tests/API/Notification.API.Tests/Application/Commands/Handlers/CreateNotificationCommandHandlersTests.cs" />
+      <File FileName="src/API/Notification.API/Controllers/NotificationController.cs" />
+      <File FileName="tests/API/Notification.API.Tests/Controllers/NotificationControllerTests.cs" Line="36" Column="47" />
+      <File FileName="tests/API/Notification.API.Tests/DTOs/Requests/CreateNotificationRequestTests.cs" />
+      <File FileName="src/core/Notification.Core/Domain/Enums/ENotificationType.cs" Line="1" Column="1" />
+      <File FileName="src/core/Notification.Core/Common/CQRS/Command.cs" Line="1" Column="1" />
+      <File FileName="src/core/Notification.Core.MessageBus/Services/MessageBus.cs" Line="1" Column="1" />
+      <File FileName="tests/Worker/Notification.Worker.Tests/UnitTest1.cs" Line="1" Column="1" />
+      <File FileName="src/Worker/Notification.Worker/BackgroundServices/SendEmailWorker.cs" Line="1" Column="1" />
+      <File FileName="src/Worker/Notification.Worker.Application/Commands/Send/Handlers/SendNotificationEmailCommandHandler.cs" Line="1" Column="1" />
+      <File FileName="src/Worker/Notification.Worker.Infrastructure/ExternalServices/Email/EmailExternalService.cs" Line="15" Column="2" />
+      <File FileName="src/Worker/Notification.Worker.Infrastructure/ExternalServices/Letter/LetterExternalService.cs" Line="1" Column="1" />
+      <File FileName="tests/Worker/Notification.Worker.Domain.Tests/UnitTest1.cs" Line="1" Column="1" />
+      <File FileName="src/Worker/Notification.Worker.Domain/Entities/Message.cs" Line="1" Column="1" />
+      <File FileName="tests/Worker/Notification.Worker.Domain.Tests/Entities/SentEvents.cs" Line="19" Column="25" />
+      <File FileName="src/Worker/Notification.Worker.Domain.Services/EmailServices.cs" Line="11" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__" />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="Notification" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.src.api.Notification.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>

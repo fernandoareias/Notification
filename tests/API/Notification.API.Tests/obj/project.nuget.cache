@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0jL+GfpGJHYsGP800t06MkIrhdLtK3zEv4Dthq44uktxbMfk0G3SfNxLHD3flzBbCeeZ4CyqKwc7Y9MKLxt3Bw==",
+  "dgSpecHash": "9f151xadZ2aTetlAdVOXQcvWWGNg6l7B9gPDCsMGvEmwW0rKubAywj17nDKZH47mqyiPZffX9BN55qOTk9Dj4w==",
   "success": true,
   "projectFilePath": "/Users/f.areias/Documents/portfolio/Notification/tests/API/Notification.API.Tests/Notification.API.Tests.csproj",
   "expectedPackageFiles": [

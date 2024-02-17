@@ -7,6 +7,12 @@ public class Sent : Entity
 {
     public Sent(string externalId, string partnerSystem, bool success)
     {
+        if (string.IsNullOrWhiteSpace(externalId))
+            throw new ArgumentException(nameof(externalId));
+
+        if (string.IsNullOrWhiteSpace(partnerSystem))
+            throw new ArgumentException(nameof(partnerSystem));
+
         ExternalId = externalId;
         PartnerSystem = partnerSystem;
         Success = success;
@@ -15,11 +21,7 @@ public class Sent : Entity
     protected Sent()
     {
     }
-
-
-
-  
-    
+      
     [BsonElement("ExternalId")]
     public string ExternalId { get; private set; }
 
